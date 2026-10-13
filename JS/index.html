@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SmartCalc - A modern, professional, responsive calculator web application supporting traditional arithmetic and advanced scientific modes.">
+  <meta name="keywords" content="Calculator, Scientific Calculator, Web Calculator, JavaScript Calculator, SmartCalc">
+  <meta name="author" content="SmartCalc Developer">
+  <title>SmartCalc — Traditional + Modern Scientific Calculator</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient background glow elements -->
+  <div class="ambient-glow glow-1" aria-hidden="true"></div>
+  <div class="ambient-glow glow-2" aria-hidden="true"></div>
+  <div class="ambient-glow glow-3" aria-hidden="true"></div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Main Application Wrapper -->
+  <div class="app-layout">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-container">
+        <!-- Brand Logo -->
+        <div class="brand">
+          <div class="brand-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="2" width="16" height="20" rx="4"></rect>
+              <line x1="8" y1="6" x2="16" y2="6"></line>
+              <line x1="16" y1="14" x2="16" y2="18"></line>
+              <path d="M16 10h.01"></path>
+              <path d="M12 10h.01"></path>
+              <path d="M8 10h.01"></path>
+              <path d="M12 14h.01"></path>
+              <path d="M8 14h.01"></path>
+              <path d="M12 18h.01"></path>
+              <path d="M8 18h.01"></path>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <h1 class="brand-title">Smart<span>Calc</span></h1>
+            <span class="brand-badge">Pro v2.0</span>
+          </div>
+        </div>
+
+        <!-- Controls (Mode Switch, Theme Toggle, Mobile History Toggle) -->
+        <div class="header-controls">
+          <!-- Traditional / Scientific Mode Switch -->
+          <div class="mode-switch-wrapper" role="group" aria-label="Calculator Mode">
+            <button type="button" id="btn-mode-standard" class="mode-tab active" data-mode="standard" aria-pressed="true">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                <line x1="8" y1="12" x2="16" y2="12"></line>
+                <line x1="12" y1="8" x2="12" y2="16"></line>
+              </svg>
+              <span>Basic</span>
+            </button>
+            <button type="button" id="btn-mode-scientific" class="mode-tab" data-mode="scientific" aria-pressed="false">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
+                <path d="M10 8h4"></path>
+                <path d="M12 8v8"></path>
+              </svg>
+              <span>Scientific</span>
+            </button>
+          </div>
+
+          <!-- History Drawer Toggle (Visible on smaller viewports) -->
+          <button type="button" id="btn-toggle-history-drawer" class="icon-btn mobile-history-btn" title="Toggle Calculation History" aria-label="Toggle Calculation History">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span class="history-badge-count" id="history-badge" aria-hidden="true">0</span>
+          </button>
+
+          <!-- Light / Dark Theme Toggle -->
+          <button type="button" id="btn-toggle-theme" class="icon-btn theme-toggle-btn" title="Toggle Light/Dark Theme" aria-label="Switch to Light Theme">
+            <!-- Sun icon for Dark Mode (click to switch to light) -->
+            <svg class="theme-icon sun-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <!-- Moon icon for Light Mode (click to switch to dark) -->
+            <svg class="theme-icon moon-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-calculator-container">
+      <div class="calculator-grid-layout">
+        
+        <!-- Calculator Device Component -->
+        <section class="calculator-card glass-panel" aria-label="Calculator Device">
+          
+          <!-- Screen Display Unit -->
+          <div class="display-container">
+            <div class="display-top-bar">
+              <!-- Memory and Angle status badges -->
+              <div class="status-tags">
+                <span class="status-tag status-memory" id="status-mem-indicator" title="Memory In Use" aria-hidden="true">M</span>
+                <button type="button" class="angle-mode-btn" id="btn-toggle-angle" title="Switch Degree / Radian mode">
+                  <span id="angle-mode-text">DEG</span>
+                </button>
+              </div>
+
+              <!-- Copy to clipboard button -->
+              <button type="button" id="btn-copy-result" class="copy-btn" title="Copy result to clipboard" aria-label="Copy result to clipboard">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy</span>
+              </button>
+            </div>
+
+            <!-- Current Expression Stream -->
+            <div class="display-expression-wrap">
+              <div id="calc-expression" class="calc-expression" aria-label="Current expression" title="Current calculation formula"></div>
+            </div>
+
+            <!-- Main Value Display & Live Preview Result -->
+            <div class="display-main-wrap">
+              <div id="calc-preview" class="calc-preview" aria-hidden="true"></div>
+              <div id="calc-result" class="calc-result" aria-live="polite" aria-label="Current value">0</div>
+            </div>
+          </div>
+
+          <!-- Memory Quick Bar -->
+          <div class="memory-bar" role="group" aria-label="Memory operations">
+            <button type="button" class="mem-btn" data-action="memory-clear" title="Memory Clear (MC)" aria-label="Memory Clear">MC</button>
+            <button type="button" class="mem-btn" data-action="memory-recall" title="Memory Recall (MR)" aria-label="Memory Recall">MR</button>
+            <button type="button" class="mem-btn" data-action="memory-add" title="Memory Add (M+)" aria-label="Memory Add">M+</button>
+            <button type="button" class="mem-btn" data-action="memory-sub" title="Memory Subtract (M-)" aria-label="Memory Subtract">M-</button>
+          </div>
+
+          <!-- Scientific Mode Function Panel (Expands when mode is active) -->
+          <div id="scientific-panel" class="scientific-panel" role="group" aria-label="Scientific functions">
+            <div class="scientific-grid">
+              <button type="button" class="calc-btn btn-fn" data-action="sin" title="Sine" aria-label="Sine">sin</button>
+              <button type="button" class="calc-btn btn-fn" data-action="cos" title="Cosine" aria-label="Cosine">cos</button>
+              <button type="button" class="calc-btn btn-fn" data-action="tan" title="Tangent" aria-label="Tangent">tan</button>
+              <button type="button" class="calc-btn btn-fn" data-action="pi" title="Pi (3.14159...)" aria-label="Pi">π</button>
+              <button type="button" class="calc-btn btn-fn" data-action="e" title="Euler's Constant (2.718...)" aria-label="Euler constant">e</button>
+
+              <button type="button" class="calc-btn btn-fn" data-action="asin" title="Inverse Sine (arcsin)" aria-label="Inverse Sine">sin⁻¹</button>
+              <button type="button" class="calc-btn btn-fn" data-action="acos" title="Inverse Cosine (arccos)" aria-label="Inverse Cosine">cos⁻¹</button>
+              <button type="button" class="calc-btn btn-fn" data-action="atan" title="Inverse Tangent (arctan)" aria-label="Inverse Tangent">tan⁻¹</button>
+              <button type="button" class="calc-btn btn-fn" data-action="sqrt" title="Square Root (√x)" aria-label="Square Root">√x</button>
+              <button type="button" class="calc-btn btn-fn" data-action="sqr" title="Square (x²)" aria-label="Square">x²</button>
+
+              <button type="button" class="calc-btn btn-fn" data-action="pow" title="Power (x^y)" aria-label="Power x to the y">xʸ</button>
+              <button type="button" class="calc-btn btn-fn" data-action="log" title="Common Logarithm (log₁₀)" aria-label="Log base 10">log</button>
+              <button type="button" class="calc-btn btn-fn" data-action="ln" title="Natural Logarithm (ln)" aria-label="Natural logarithm">ln</button>
+              <button type="button" class="calc-btn btn-fn" data-action="fact" title="Factorial (n!)" aria-label="Factorial">n!</button>
+              <button type="button" class="calc-btn btn-fn" data-action="inv" title="Reciprocal (1/x)" aria-label="Reciprocal">1/x</button>
+            </div>
+          </div>
+
+          <!-- Standard Keypad Grid -->
+          <div class="keypad-grid" role="group" aria-label="Keypad">
+            <!-- Row 1 -->
+            <button type="button" class="calc-btn btn-danger" data-action="clear-all" title="Clear All (Escape)" aria-label="Clear All">AC</button>
+            <button type="button" class="calc-btn btn-action" data-action="delete" title="Backspace / Delete" aria-label="Delete last digit">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path>
+                <line x1="18" y1="9" x2="12" y2="15"></line>
+                <line x1="12" y1="9" x2="18" y2="15"></line>
+              </svg>
+            </button>
+            <button type="button" class="calc-btn btn-action" data-action="percent" title="Percentage (%)" aria-label="Percentage">%</button>
+            <button type="button" class="calc-btn btn-operator" data-action="divide" data-symbol="÷" title="Divide (÷)" aria-label="Divide">÷</button>
+
+            <!-- Row 2 -->
+            <button type="button" class="calc-btn btn-num" data-num="7" aria-label="7">7</button>
+            <button type="button" class="calc-btn btn-num" data-num="8" aria-label="8">8</button>
+            <button type="button" class="calc-btn btn-num" data-num="9" aria-label="9">9</button>
+            <button type="button" class="calc-btn btn-operator" data-action="multiply" data-symbol="×" title="Multiply (×)" aria-label="Multiply">×</button>
+
+            <!-- Row 3 -->
+            <button type="button" class="calc-btn btn-num" data-num="4" aria-label="4">4</button>
+            <button type="button" class="calc-btn btn-num" data-num="5" aria-label="5">5</button>
+            <button type="button" class="calc-btn btn-num" data-num="6" aria-label="6">6</button>
+            <button type="button" class="calc-btn btn-operator" data-action="subtract" data-symbol="-" title="Subtract (-)" aria-label="Subtract">-</button>
+
+            <!-- Row 4 -->
+            <button type="button" class="calc-btn btn-num" data-num="1" aria-label="1">1</button>
+            <button type="button" class="calc-btn btn-num" data-num="2" aria-label="2">2</button>
+            <button type="button" class="calc-btn btn-num" data-num="3" aria-label="3">3</button>
+            <button type="button" class="calc-btn btn-operator" data-action="add" data-symbol="+" title="Add (+)" aria-label="Add">+</button>
+
+            <!-- Row 5 -->
+            <button type="button" class="calc-btn btn-action" data-action="negate" title="Toggle Positive/Negative (+/-)" aria-label="Toggle Sign">±</button>
+            <button type="button" class="calc-btn btn-num" data-num="0" aria-label="0">0</button>
+            <button type="button" class="calc-btn btn-num" data-action="decimal" aria-label="Decimal Point">.</button>
+            <button type="button" class="calc-btn btn-equals" data-action="equals" title="Calculate result (Enter or =)" aria-label="Calculate Equals">=</button>
+          </div>
+        </section>
+
+        <!-- Calculation History Sidebar Panel -->
+        <aside class="history-card glass-panel" id="history-panel" aria-label="Calculation History">
+          <div class="history-header">
+            <div class="history-title-group">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <h2>Calculation History</h2>
+            </div>
+            <div class="history-actions">
+              <button type="button" id="btn-clear-history" class="text-btn clear-history-btn" title="Clear all calculation history" aria-label="Clear history">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 6h18"></path>
+                  <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                  <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                </svg>
+                <span>Clear</span>
+              </button>
+              <button type="button" id="btn-close-history-drawer" class="icon-btn mobile-close-history" aria-label="Close history panel">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- History List Container -->
+          <div class="history-body" id="history-list-container">
+            <!-- Dynamically populated or empty state placeholder -->
+            <div class="history-empty" id="history-empty-state">
+              <div class="empty-icon-circle">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+              </div>
+              <p class="empty-title">No calculations yet</p>
+              <p class="empty-sub">Expressions computed will be saved here automatically. Click any result to reuse it.</p>
+            </div>
+            <ul class="history-list" id="history-items-list" role="list"></ul>
+          </div>
+
+          <!-- Quick Tip Footer in History -->
+          <div class="history-footer">
+            <span class="history-tip">💡 Tip: Tap any entry's result to load it into the active calculator.</span>
+          </div>
+        </aside>
+
+      </div>
+    </main>
+
+    <!-- Professional Footer -->
+    <footer class="app-footer">
+      <div class="footer-container">
+        <div class="footer-grid">
+          
+          <div class="footer-col brand-col">
+            <div class="footer-brand">
+              <span class="footer-logo">Smart<span>Calc</span></span>
+              <p class="footer-tagline">High-precision modern web calculator built with vanilla web technologies. Designed for seamless productivity, high accuracy, and elegant ergonomics.</p>
+            </div>
+          </div>
+
+          <div class="footer-col">
+            <h3 class="footer-heading">Features</h3>
+            <ul class="footer-links">
+              <li><span>Standard Arithmetic & Chained Ops</span></li>
+              <li><span>Scientific & Trigonometric Suite</span></li>
+              <li><span>Memory Functions (MC, MR, M+, M-)</span></li>
+              <li><span>Persistent LocalStorage History</span></li>
+              <li><span>Keyboard Navigation & Shortcuts</span></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h3 class="footer-heading">Keyboard Shortcuts</h3>
+            <ul class="footer-links shortcuts-list">
+              <li><kbd>0</kbd>–<kbd>9</kbd> <span class="shortcut-desc">Input Digits</span></li>
+              <li><kbd>+</kbd> <kbd>-</kbd> <kbd>*</kbd> <kbd>/</kbd> <span class="shortcut-desc">Operators</span></li>
+              <li><kbd>Enter</kbd> or <kbd>=</kbd> <span class="shortcut-desc">Calculate</span></li>
+              <li><kbd>Backspace</kbd> <span class="shortcut-desc">Delete Digit</span></li>
+              <li><kbd>Esc</kbd> <span class="shortcut-desc">Clear All (AC)</span></li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="footer-bottom">
+          <p class="copyright">&copy; 2026 SmartCalc. Built with semantic HTML5, modern CSS3 &amp; Vanilla JavaScript. Zero external frameworks.</p>
+          <div class="footer-tech-badges">
+            <span class="tech-pill">HTML5</span>
+            <span class="tech-pill">CSS3 Glassmorphism</span>
+            <span class="tech-pill">Vanilla JS (ES6+)</span>
+            <span class="tech-pill">Zero Dependencies</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- JavaScript Application Script -->
+  <script src="script.js"></script>
+</body>
+</html>
+
