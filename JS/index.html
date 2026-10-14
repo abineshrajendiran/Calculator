@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Calculator</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Main Container -->
+  <div class="calculator-container">
+
+    <!-- Header -->
+    <div class="header">
+      <h2>Smart Calculator</h2>
+      <button id="theme-btn">Light Mode</button>
+    </div>
+
+    <p class="subtitle">Simple calculations. Smarter experience.</p>
+
+    <!-- Display Screen -->
+    <div class="display">
+      <div id="previous-op"></div>
+      <div id="current-op">0</div>
+    </div>
+
+    <!-- Buttons Keypad -->
+    <div class="buttons">
+      <!-- Row 1 -->
+      <button class="btn btn-action" id="btn-clear">AC</button>
+      <button class="btn btn-action" id="btn-delete">DEL</button>
+      <button class="btn btn-action" id="btn-percent">%</button>
+      <button class="btn btn-operator" id="btn-divide">÷</button>
+
+      <!-- Row 2 -->
+      <button class="btn btn-number" id="btn-7">7</button>
+      <button class="btn btn-number" id="btn-8">8</button>
+      <button class="btn btn-number" id="btn-9">9</button>
+      <button class="btn btn-operator" id="btn-multiply">×</button>
+
+      <!-- Row 3 -->
+      <button class="btn btn-number" id="btn-4">4</button>
+      <button class="btn btn-number" id="btn-5">5</button>
+      <button class="btn btn-number" id="btn-6">6</button>
+      <button class="btn btn-operator" id="btn-subtract">−</button>
+
+      <!-- Row 4 -->
+      <button class="btn btn-number" id="btn-1">1</button>
+      <button class="btn btn-number" id="btn-2">2</button>
+      <button class="btn btn-number" id="btn-3">3</button>
+      <button class="btn btn-operator" id="btn-add">+</button>
+
+      <!-- Row 5 -->
+      <button class="btn btn-action" id="btn-sign">±</button>
+      <button class="btn btn-number" id="btn-0">0</button>
+      <button class="btn btn-number" id="btn-dot">.</button>
+      <button class="btn btn-equals" id="btn-equals">=</button>
+    </div>
+
+    <!-- History Section -->
+    <div class="history-section">
+      <div class="history-header">
+        <h3>History (Last 10)</h3>
+        <button id="clear-history-btn">Clear History</button>
+      </div>
+      <div id="history-empty" class="history-empty">No calculations yet</div>
+      <ul id="history-list"></ul>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>@ Abinesh Rajendian</p>
+    </div>
+
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

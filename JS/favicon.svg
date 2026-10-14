@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#a855f7" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  <!-- Background Rounded Rect -->
+  <rect x="4" y="4" width="56" height="56" rx="16" fill="url(#grad)" filter="url(#shadow)"/>
+  
+  <!-- Calculator Display Window -->
+  <rect x="12" y="12" width="40" height="13" rx="4" fill="#0f172a" fill-opacity="0.6"/>
+  
+  <!-- Buttons Matrix Dots/Icons -->
+  <!-- Row 1 -->
+  <rect x="14" y="30" width="8" height="6" rx="2" fill="#ffffff" fill-opacity="0.85"/>
+  <rect x="25" y="30" width="8" height="6" rx="2" fill="#ffffff" fill-opacity="0.85"/>
+  <rect x="36" y="30" width="8" height="6" rx="2" fill="#ffffff" fill-opacity="0.85"/>
+  <rect x="47" y="30" width="5" height="6" rx="2" fill="#38bdf8"/>
+  
+  <!-- Row 2 -->
+  <rect x="14" y="39" width="8" height="6" rx="2" fill="#ffffff" fill-opacity="0.85"/>
+  <rect x="25" y="39" width="8" height="6" rx="2" fill="#ffffff" fill-opacity="0.85"/>
+  <rect x="36" y="39" width="8" height="6" rx="2" fill="#ffffff" fill-opacity="0.85"/>
+  <rect x="47" y="39" width="5" height="6" rx="2" fill="#38bdf8"/>
+
+  <!-- Row 3: Equals button accent -->
+  <rect x="14" y="48" width="19" height="6" rx="2" fill="#ffffff" fill-opacity="0.85"/>
+  <rect x="36" y="48" width="8" height="6" rx="2" fill="#ffffff" fill-opacity="0.85"/>
+  <rect x="47" y="48" width="5" height="6" rx="2" fill="#f43f5e"/>
+</svg>
+

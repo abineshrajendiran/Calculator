@@ -1,0 +1,278 @@
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Dark Theme (Default) */
+body {
+  background-color: #0f172a;
+  color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Light Theme */
+body.light-theme {
+  background-color: #f1f5f9;
+  color: #1e293b;
+}
+
+/* Main Calculator Container */
+.calculator-container {
+  background-color: #1e293b;
+  width: 100%;
+  max-width: 400px;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+body.light-theme .calculator-container {
+  background-color: #ffffff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.header h2 {
+  font-size: 20px;
+}
+
+#theme-btn {
+  background-color: #334155;
+  color: #ffffff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+body.light-theme #theme-btn {
+  background-color: #e2e8f0;
+  color: #1e293b;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #94a3b8;
+  margin-bottom: 16px;
+}
+
+body.light-theme .subtitle {
+  color: #64748b;
+}
+
+/* Display Screen */
+.display {
+  background-color: #0b1120;
+  padding: 16px;
+  border-radius: 10px;
+  text-align: right;
+  margin-bottom: 20px;
+  min-height: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+body.light-theme .display {
+  background-color: #f8fafc;
+  border: 1px solid #cbd5e1;
+}
+
+#previous-op {
+  font-size: 14px;
+  color: #94a3b8;
+  min-height: 18px;
+}
+
+body.light-theme #previous-op {
+  color: #64748b;
+}
+
+#current-op {
+  font-size: 32px;
+  font-weight: bold;
+  color: #ffffff;
+  word-wrap: break-word;
+}
+
+body.light-theme #current-op {
+  color: #0f172a;
+}
+
+/* Buttons Keypad Grid */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.btn {
+  height: 52px;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.1s;
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+
+/* Number Buttons */
+.btn-number {
+  background-color: #334155;
+  color: #ffffff;
+}
+
+.btn-number:hover {
+  background-color: #475569;
+}
+
+body.light-theme .btn-number {
+  background-color: #f1f5f9;
+  color: #0f172a;
+}
+
+body.light-theme .btn-number:hover {
+  background-color: #e2e8f0;
+}
+
+/* Action Buttons (AC, DEL, %, ±) */
+.btn-action {
+  background-color: #475569;
+  color: #ffffff;
+}
+
+.btn-action:hover {
+  background-color: #64748b;
+}
+
+body.light-theme .btn-action {
+  background-color: #e2e8f0;
+  color: #334155;
+}
+
+body.light-theme .btn-action:hover {
+  background-color: #cbd5e1;
+}
+
+/* Operator Buttons (+, -, ×, ÷) */
+.btn-operator {
+  background-color: #6366f1;
+  color: #ffffff;
+  font-size: 20px;
+}
+
+.btn-operator:hover {
+  background-color: #4f46e5;
+}
+
+/* Equals Button (=) */
+.btn-equals {
+  background-color: #10b981;
+  color: #ffffff;
+  font-size: 22px;
+}
+
+.btn-equals:hover {
+  background-color: #059669;
+}
+
+/* History Section */
+.history-section {
+  border-top: 1px solid #334155;
+  padding-top: 14px;
+}
+
+body.light-theme .history-section {
+  border-top-color: #e2e8f0;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.history-header h3 {
+  font-size: 14px;
+}
+
+#clear-history-btn {
+  background: none;
+  border: 1px solid #475569;
+  color: #94a3b8;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+#clear-history-btn:hover {
+  color: #ef4444;
+  border-color: #ef4444;
+}
+
+.history-empty {
+  font-size: 12px;
+  color: #64748b;
+  text-align: center;
+  padding: 10px 0;
+}
+
+#history-list {
+  list-style: none;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.history-item {
+  padding: 6px 8px;
+  font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+body.light-theme .history-item {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+.history-item:hover {
+  background-color: rgba(99, 102, 241, 0.2);
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 12px;
+  color: #64748b;
+}
+
+body.light-theme .footer {
+  color: #94a3b8;
+}
